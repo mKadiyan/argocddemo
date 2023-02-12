@@ -1,0 +1,39 @@
+apiVersion: v2
+name: spring-boot-app
+description: A Helm chart for deploying a Spring Boot application
+version: 0.1.0
+
+# Define the resources needed by the application
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 200m
+
+# Define the service for the application
+service:
+  name: spring-boot-app
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+
+# Define the deployment for the application
+deployment:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-boot-app
+  template:
+    metadata:
+      labels:
+        app: spring-boot-app
+    spec:
+      containers:
+        - name: spring-boot-app
+          image: ravinderk/elkdemo:v2
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 200m
+
